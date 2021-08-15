@@ -20,7 +20,7 @@ class Product(models.Model):
     description = models.CharField(max_length=200, blank=True, null=True)
     quantity = models.IntegerField()
     threshold = models.IntegerField()
-    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     image = models.FileField(upload_to="products")
     expiry_date = models.DateTimeField(blank=True, null=True)
     purchase_price = models.DecimalField(max_digits=10, decimal_places=2)

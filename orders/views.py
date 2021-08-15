@@ -7,7 +7,7 @@ import datetime
 from rest_framework import generics, permissions
 from .models import OrderItems, Orders
 
-from .serializers import OrderItemsSerializer, QuotationSerializer
+from .serializers import OrderItemsSerializer, OrderSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 import random
@@ -25,12 +25,12 @@ logging.basicConfig(filename=str(ROOT_DIR)+'/logs/amata.log',
                     level=logging.DEBUG)
 
 
-class QuotationsViewSet(viewsets.ViewSet):
+class OrderViewSet(viewsets.ViewSet):
 
     def list(self, request): 
         try:
             order = Orders.objects.filter(deleted_at=None)
-            serializer = QuotationSerializer(order, many=True)
+            serializer = OrderSerializer(order, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -43,7 +43,7 @@ class QuotationsViewSet(viewsets.ViewSet):
             # order serializer
             random_bk_code = random.randint(10000,900000)
             order["quotation_no"] = "QUOT"+str(random_bk_code)
-            order_serializer = QuotationSerializer(data=order)
+            order_serializer = OrderSerializer(data=order)
             order_serializer.is_valid(raise_exception=True)
             order_serializer.save()
             
@@ -51,9 +51,9 @@ class QuotationsViewSet(viewsets.ViewSet):
             saved_quotation_booking_code = str(Orders.objects.last())
             for item in order_items:
                 item["quotation_no"] = saved_quotation_booking_code
-                quotation_item_serializer = OrderItemsSerializer(data=item)
-                quotation_item_serializer.is_valid(raise_exception=True)
-                quotation_item_serializer.save()
+                order_item_serializer = OrderItemsSerializer(data=item)
+                order_item_serializer.is_valid(raise_exception=True)
+                order_item_serializer.save()
             # logging.debug(str(order_serializer))
 
 
@@ -65,7 +65,7 @@ class QuotationsViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None): 
         try:
             order = Orders.objects.get(id=pk, deleted_at=None)
-            order_serializer = QuotationSerializer(order)
+            order_serializer = OrderSerializer(order)
 
             # order items list
             order_items_list = []
@@ -87,15 +87,15 @@ class QuotationsViewSet(viewsets.ViewSet):
             order = Orders.objects.get(id=pk)
             order_items = OrderItems.objects.filter(quotation_no=order.quotation_no)
 
-            order_serializer = QuotationSerializer(instance=order, data=request.data["order"])
+            order_serializer = OrderSerializer(instance=order, data=request.data["order"])
             order_serializer.is_valid(raise_exception=True)
             order_serializer.save()
 
             # # order items
             for index,item in enumerate(order_items):
-                quotation_item_serializer = OrderItemsSerializer(instance = item, data=request.data["order_items"][index])
-                quotation_item_serializer.is_valid(raise_exception=True)
-                quotation_item_serializer.save()
+                order_item_serializer = OrderItemsSerializer(instance = item, data=request.data["order_items"][index])
+                order_item_serializer.is_valid(raise_exception=True)
+                order_item_serializer.save()
 
             return Response(request.data, status=status.HTTP_201_CREATED)
         except Exception as e:
@@ -106,10 +106,10 @@ class QuotationsViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         try:
             order = Orders.objects.get(id=pk)
-            serializer = QuotationSerializer(instance=order)
+            serializer = OrderSerializer(instance=order)
             request_instance = dict(serializer.data)
             request_instance['deleted_at'] = datetime.datetime.now()
-            order_serializer = QuotationSerializer(instance=order, data=request_instance)
+            order_serializer = OrderSerializer(instance=order, data=request_instance)
             order_serializer.is_valid(raise_exception=True)
             order_serializer.deleted_at=datetime.datetime.now()
             order_serializer.save()
@@ -120,10 +120,10 @@ class QuotationsViewSet(viewsets.ViewSet):
                 serializer = OrderItemsSerializer(instance=item)
                 request_instance = dict(serializer.data)
                 request_instance['deleted_at'] = datetime.datetime.now()
-                quotation_item_serializer = OrderItemsSerializer(instance=item, data=request_instance)
-                quotation_item_serializer.is_valid(raise_exception=True)
-                quotation_item_serializer.deleted_at=datetime.datetime.now()
-                quotation_item_serializer.save()
+                order_item_serializer = OrderItemsSerializer(instance=item, data=request_instance)
+                order_item_serializer.is_valid(raise_exception=True)
+                order_item_serializer.deleted_at=datetime.datetime.now()
+                order_item_serializer.save()
 
             return Response({"response":"Quotation deleted successfully"}, status=status.HTTP_200_OK)
         except Exception as e:

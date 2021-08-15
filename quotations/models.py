@@ -1,10 +1,10 @@
 from django.db import models
-from users.models import User
-from products.models import Products
+from customers.models import Customer
+from products.models import Product
 
 
-class Quotations(models.Model):
-    customer_id = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+class Quotation(models.Model):
+    customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
     customer_first_name = models.CharField(max_length=255)
     customer_middle_name = models.CharField(max_length=255, blank=True, null=True)
     customer_last_name = models.CharField(max_length=255)
@@ -24,7 +24,7 @@ class Quotations(models.Model):
 
 class QuotationItems(models.Model):
     quotation_no = models.CharField(max_length=255)
-    product_id = models.ForeignKey(Products, on_delete=models.CASCADE)
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     # unit_price = models.DecimalField(max_digits=10, decimal_places=2)
     # sub_total = models.DecimalField(max_digits=10, decimal_places=2)

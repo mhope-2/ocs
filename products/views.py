@@ -5,9 +5,9 @@ import datetime
 # import pandas as pd
 
 from rest_framework import generics, permissions
-from .models import Categories, Clothes
+from .models import Category, Product
 
-from .serializers import ClothesSerializer, CategoriesSerializer
+from .serializers import ProductSerializer, CategorySerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
@@ -27,7 +27,7 @@ logging.basicConfig(filename=str(ROOT_DIR)+'/logs/ocs.log',
 
 # Create your views here.
 @method_decorator(csrf_exempt, name='dispatch')
-class CategoriesViewSet(viewsets.ViewSet):
+class CategoryViewSet(viewsets.ViewSet):
 
     # permission_classes = (permissions.IsAuthenticated,)
 
@@ -42,7 +42,7 @@ class CategoriesViewSet(viewsets.ViewSet):
     @csrf_exempt
     def create(self, request): 
         try:
-            serializer = CategoriesSerializer(data=request.data)
+            serializer = CategorySerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             logging.debug(str(serializer))
@@ -64,7 +64,7 @@ class CategoriesViewSet(viewsets.ViewSet):
     def update(self, request, pk=None): 
         try:
             category = Categories.objects.get(id=pk)
-            serializer = CategoriesSerializer(instance=category, data=request.data)
+            serializer = CategorySerializer(instance=category, data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response({"response": "Category has been updated successfully"}, status=status.HTTP_201_CREATED)
@@ -76,10 +76,10 @@ class CategoriesViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         try:
             category = categories.objects.get(id=pk)
-            serializer = CategoriesSerializer(instance=category)
+            serializer = CategorySerializer(instance=category)
             request_instance = dict(serializer.data)
             request_instance['deleted_at'] = datetime.datetime.now()
-            serializer = CategoriesSerializer(instance=category, data=request_instance)
+            serializer = CategorySerializer(instance=category, data=request_instance)
             serializer.is_valid(raise_exception=True)
             serializer.deleted_at=datetime.datetime.now()
             serializer.save()
@@ -90,7 +90,7 @@ class CategoriesViewSet(viewsets.ViewSet):
 
 
 # 
-class ClothesViewSet(viewsets.ViewSet):
+class ProductViewSet(viewsets.ViewSet):
 
     # permission_classes = (permissions.IsAuthenticated,)
 

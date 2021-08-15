@@ -1,11 +1,11 @@
 from django.db import models
 from products.models import Product
-from user.models import User
+from customers.models import Customer
 
 # # Create your models here.
 class Invoice(models.Model):
     invoice_no = models.CharField(max_length=255)
-    customer_id = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, null=True)
     customer_first_name = models.CharField(max_length=255)
     customer_middle_name = models.CharField(max_length=255, blank=True, null=True)
     customer_last_name = models.CharField(max_length=255)
@@ -20,7 +20,7 @@ class Invoice(models.Model):
 
 class InvoiceItems(models.Model):
     invoice_no = models.CharField(max_length=255)
-    product_id = models.ForeignKey(Products, on_delete=models.CASCADE)
+    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.IntegerField()
     description = models.CharField(max_length=191, blank=True, null=True)

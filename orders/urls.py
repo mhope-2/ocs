@@ -1,30 +1,30 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import InvoiceViewSet
+from .views import OrderViewSet
 from rest_framework import routers
 
 
 router = routers.DefaultRouter()
-router.register('invoices', InvoiceViewSet, basename='Invoices')
+router.register('orders', OrderViewSet, basename='Quotations')
 
 
 urlpatterns = [
     path('', include(router.urls)),
 
     # products
-    path('invoices', InvoiceViewSet.as_view({
+    path('orders', OrderViewSet.as_view({
         'get': 'list',
     })),
-    path('invoices/create', InvoiceViewSet.as_view({
+    path('orders/create', OrderViewSet.as_view({
         'post': 'create',
     })),
-    path('invoices/<str:pk>/update', InvoiceViewSet.as_view({
+    path('orders/<str:pk>/update', OrderViewSet.as_view({
         'put': 'update',
     })),
-    path('invoices/<str:pk>', InvoiceViewSet.as_view({
+    path('orders/<str:pk>', OrderViewSet.as_view({
         'get': 'retrieve',
     })),
-    path('invoices/<str:pk>/delete', InvoiceViewSet.as_view({
+    path('orders/<str:pk>/delete', OrderViewSet.as_view({
         'delete': 'destroy'
     })),
 

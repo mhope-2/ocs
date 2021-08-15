@@ -26,7 +26,7 @@ logging.basicConfig(filename=str(ROOT_DIR)+'/logs/amata.log',
                     level=logging.DEBUG)
 
 
-class InvoicesViewSet(viewsets.ViewSet):
+class InvoiceViewSet(viewsets.ViewSet):
 
     def list(self, request): 
         try:

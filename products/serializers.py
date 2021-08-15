@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from .models import Categories, Products
+from .models import Category, Product
 
-class CategoriesSerializer(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Categories
+        model = Category
         fields = '__all__'
 
 
-class ProductsSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Products
+        model = Product
         # fields = '__all__'
         exclude = ('image', )

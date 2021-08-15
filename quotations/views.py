@@ -25,7 +25,7 @@ logging.basicConfig(filename=str(ROOT_DIR)+'/logs/amata.log',
                     level=logging.DEBUG)
 
 
-class QuotationsViewSet(viewsets.ViewSet):
+class QuotationViewSet(viewsets.ViewSet):
 
     def list(self, request): 
         try:

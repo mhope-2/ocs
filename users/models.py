@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
-
+import uuid
 
 class Role(models.Model):
     role = models.CharField(max_length=255)
@@ -11,7 +11,7 @@ class Role(models.Model):
 
 
 class User(AbstractUser):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     password = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
     gender = models.CharField(
