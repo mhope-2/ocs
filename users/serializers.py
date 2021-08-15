@@ -7,6 +7,8 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.encoding import smart_str, force_str, smart_bytes, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
+from .utils import Util 
+
 import logging
 from pathlib import Path
 # Create your views here.
@@ -24,10 +26,22 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        password = validated_data.pop('password')
+        password = User.objects.make_random_password()
         user = User(**validated_data)
         user.set_password(password)
         user.save()
+
+        data = {
+            'email_subject': "INT Clothing Store User Password",
+            'email_body': str(password),
+            'to_email': validated_data.pop('email')
+        }
+        try:
+            Util.send_email(data)
+            log("{}'s password sent successfully".format(user.username))
+        except Exception as e:
+            logging.error("Sending User Password Failed")
+
         return user
 
 

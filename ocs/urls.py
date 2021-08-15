@@ -14,8 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
+from users.views import (
+    RequestPasswordResetEmail, SetNewPasswordAPIView, PasswordTokenCheckAPI
+)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/', include('rest_auth.urls')),
+    path('rest-auth-reg/', include('rest_auth.registration.urls')),
+    
+    path('api/v1/', include('users.urls')),
+    path('api/v1/', include('clothes.urls')),
+    path('api/v1/', include('customers.urls')),
+
+    # path('api/v1/', include('djoser.urls')),
+
+    path('api/v1/password-reset/<uidb64>/<token>/', PasswordTokenCheckAPI.as_view(), name='password-reset-confirm'),
+    path('api/v1/request-reset-email/', RequestPasswordResetEmail.as_view(), name='request-reset-email'),
+    path('api/v1/password-reset-complete/', SetNewPasswordAPIView.as_view(), name='password-reset-complete'),
 ]
+

@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Customer(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     first_name = models.CharField(max_length=191)
     middle_name = models.CharField(max_length=191, blank=True, null=True)
     last_name = models.CharField(max_length=191)

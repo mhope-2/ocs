@@ -11,6 +11,7 @@ class Role(models.Model):
 
 
 class User(AbstractUser):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     password = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
     gender = models.CharField(

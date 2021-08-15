@@ -13,7 +13,7 @@ from pathlib import Path
 
 ROOT_DIR = Path('__file__').resolve().parent
 
-logging.basicConfig(filename=str(ROOT_DIR)+'/logs/ocs.log',
+logging.basicConfig(filename=str(ROOT_DIR)+'/logs/amata.log',
                     filemode='a',
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                     level=logging.DEBUG)
@@ -36,9 +36,9 @@ class CustomerViewSet(viewsets.ViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             logging.debug(str(serializer))
-            return Response({"response": "Customer registration successful"}, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
-            return Response({"response": "Error Registering Customer"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"response": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
 
     def retrieve(self, request, pk=None): 
@@ -57,7 +57,7 @@ class CustomerViewSet(viewsets.ViewSet):
             serializer = CustomerSerializer(instance=user, data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response({"response":"Customer updated successfully"}, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"response": "Error Updating Customer"}, status=status.HTTP_400_BAD_REQUEST)
 

@@ -38,13 +38,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+    'corsheaders',
+    'audit_trail',
+
     'users',
     'quotations',
     'invoices',
     'orders',
     'payments',
     'customers',
-    'clothes'
+    'products'
 ]
 
 MIDDLEWARE = [
@@ -105,7 +116,7 @@ AUTH_USER_MODEL = 'users.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # 'rest_framework.authentication.TokenAuthentication',
-        'amata.auth.BearerAuthentication'
+        'ocs.auth.BearerAuthentication'
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
