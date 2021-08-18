@@ -1,9 +1,9 @@
 from django.db import models
 from customers.models import Customer
-from invoices.models import Invoices
+from invoices.models import Invoice
  
 # Create your models here.
-class Taxes(models.Model):
+class Tax(models.Model):
     name = models.CharField(max_length=191)
     percentage = models.DecimalField(decimal_places=2, max_digits=10)
     description = models.CharField(max_length=191, blank=True, null=True)
@@ -16,7 +16,7 @@ class Taxes(models.Model):
 
 
 # # Create your models here.
-class PaymentMethods(models.Model):
+class PaymentMethod(models.Model):
     name = models.CharField(max_length=191)
     description = models.CharField(max_length=191, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -27,7 +27,7 @@ class PaymentMethods(models.Model):
         return "{}".format(self.name)
 
 
-class Payments(models.Model):
+class Payment(models.Model):
     payment_no = models.CharField(max_length=191)  # PAY00001 + 1
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
     customer_first_name = models.CharField(max_length=255)
