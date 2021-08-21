@@ -1,0 +1,80 @@
+name: Django CI
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 0
+    - name: login
+      uses: actions/heroku@master
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      with:
+        args: container:login
+    - name: Install requirements # install application requirements
+      run: pip install -r requirements.txt
+
+    - name: Make Migrations
+      run: python manage.py makemigrations
+
+    - name: Make Migrations user
+      run: python manage.py makemigrations user
+
+    - name: Make Migrations customers
+      run: python manage.py makemigrations customers
+
+    - name: Make Migrations products
+      run: python manage.py makemigrations products
+
+    - name: Make Migrations quotations
+      run: python manage.py makemigrations quotations
+      
+    - name: Make Migrations orders
+      run: python manage.py makemigrations orders
+
+    - name: Make Migrations invoices
+      run: python manage.py makemigrations invoices
+       
+    - name: Make Migrations payments
+      run: python manage.py makemigrations payments
+    
+
+    - name: Run Migrations
+      run: python manage.py migrate
+
+    - name: Run Migrations user
+      run: python manage.py migrate user
+
+    - name: Run Migrations customers
+      run: python manage.py migrate customers
+    
+    - name: Run Migrations products
+      run: python manage.py migrate products
+
+    - name: Run Migrations quotations
+      run: python manage.py migrate quotations
+      
+    - name: Run Migrations quotations
+      run: python manage.py migrate quotations
+
+    - name: Run Migrations orders
+      run: python manage.py migrate orders
+      
+    - name: Run Migrations payments
+      run: python manage.py migrate payments
+
+
+    - name: Run Test # running tests
+      run: python manage.py test
+
+    - name: set remote
+      run: git remote set-url origin https://heroku:${{ secrets.HEROKU_API_KEY }}@github.com/mhope-2/ocs.git
+      
+    - name: push and deploy
+      run: git push origin HEAD:master -f
