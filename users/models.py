@@ -27,13 +27,13 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=255)
     middle_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255)
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+    # role = models.ForeignKey(Role, on_delete=models.CASCADE)
     last_logout = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(blank=True, null=True)    
 
     def __str__(self):
-        # return "{} | {} | {}".format(self.id, self.email) 
-        return "{} | {} | {}".format(self.id, self.email, self.role) 
+        return "{} | {} | {}".format(self.id, self.email) 
+        # return "{} | {} | {}".format(self.id, self.email, self.role) 
 
