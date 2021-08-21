@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 
+import dj_database_url 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -97,11 +99,17 @@ WSGI_APPLICATION = 'ocs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default="postgres://wvfmrgnhbxxpcw:5fac3eec623f6fedc60d78b1d136d234bb5baf9a55769a3dce8c2651ece6dbb2@ec2-54-156-60-12.compute-1.amazonaws.com:5432/dbg0o1lhpm7bb1"
+    )
 }
 
 
@@ -184,6 +192,6 @@ STATICFILES_DIRS = (
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-import dj_database_url 
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+# import dj_database_url 
+# prod_db  =  dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(prod_db)
