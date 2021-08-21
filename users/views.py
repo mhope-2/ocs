@@ -44,7 +44,7 @@ class RoleViewSet(viewsets.ViewSet):
 
 class UserViewSet(viewsets.ViewSet):
 
-    # permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
 
     def list(self, request): 
         users = User.objects.filter(deleted_at=None)
@@ -60,7 +60,7 @@ class UserViewSet(viewsets.ViewSet):
             logging.debug(str(serializer))
             return Response({"response": "User registration successful"}, status=status.HTTP_201_CREATED)
         except Exception as e:
-            return Response({"response": "Error Registering User"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
     @csrf_exempt
     def update(self, request, pk=None): 

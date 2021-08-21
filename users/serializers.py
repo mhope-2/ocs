@@ -23,25 +23,27 @@ logging.basicConfig(filename=str(ROOT_DIR)+'/logs/ocs.log',
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        # fields = '__all__'
+        exclude=('password',)
 
     def create(self, validated_data):
+        # password = validated_data.pop('password')
+        # user = User(**validated_data)
         password = User.objects.make_random_password()
         user = User(**validated_data)
         user.set_password(password)
         user.save()
 
         data = {
-            'email_subject': "INT Clothing Store User Password",
-            'email_body': str(password),
+            'email_subject': "Amata Cosmetics User Password",
+            'email_body': "Your password is {}. Kindly use this to log in.\n\nKind Regards\nInt. Clothing.".format(str(password)),
             'to_email': validated_data.pop('email')
         }
         try:
             Util.send_email(data)
             log("{}'s password sent successfully".format(user.username))
         except Exception as e:
-            logging.error("Sending User Password Failed")
-
+            logging.error("Sending User Password Failed. Error {}".format(str(e)))
         return user
 
 

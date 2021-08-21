@@ -11,7 +11,7 @@ class Role(models.Model):
 
 
 class User(AbstractUser):
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    # uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     password = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
     gender = models.CharField(
@@ -34,5 +34,6 @@ class User(AbstractUser):
     deleted_at = models.DateTimeField(blank=True, null=True)    
 
     def __str__(self):
+        # return "{} | {} | {}".format(self.id, self.email) 
         return "{} | {} | {}".format(self.id, self.email, self.role) 
 

@@ -1,0 +1,1 @@
+web: gunicorn amata.wsgi --log-file -
