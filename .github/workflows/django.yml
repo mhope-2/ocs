@@ -12,11 +12,11 @@ jobs:
       with:
         fetch-depth: 0
     - name: login
-      uses: actions/heroku@master
+    - uses: actions/heroku@master
       # env:
       #   HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         # args: container:login
     - name: Install requirements # install application requirements
       run: pip install -r requirements.txt
