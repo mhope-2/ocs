@@ -1,1 +1,1 @@
-web: gunicorn amata.wsgi --log-file -
+web: gunicorn ocs.wsgi --log-file -
