@@ -34,7 +34,7 @@ class CategoryViewSet(viewsets.ViewSet):
     def list(self, request): 
         try:
             categories = Categories.objects.filter(deleted_at=None)
-            serializer = ClotheCategoriesSerializer(categories, many=True)
+            serializer = CategorySerializer(categories, many=True)
             return Response({serializer.data}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
@@ -54,7 +54,7 @@ class CategoryViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None): 
         try:
             category = ClotheCategories.objects.get(id=pk, deleted_at=None)
-            serializer = ClotheCategoriesSerializer(category)
+            serializer = CategorySerializer(category)
             return Response(serializer.data)
         except Exception as e:
             logging.error(str(e))

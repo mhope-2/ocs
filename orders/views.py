@@ -42,15 +42,15 @@ class OrderViewSet(viewsets.ViewSet):
 
             # order serializer
             random_bk_code = random.randint(10000,900000)
-            order["quotation_no"] = "QUOT"+str(random_bk_code)
+            order["order_no"] = "QUOT"+str(random_bk_code)
             order_serializer = OrderSerializer(data=order)
             order_serializer.is_valid(raise_exception=True)
             order_serializer.save()
             
             # order items
-            saved_quotation_booking_code = str(Orders.objects.last())
+            saved_order_booking_code = str(Orders.objects.last())
             for item in order_items:
-                item["quotation_no"] = saved_quotation_booking_code
+                item["order_no"] = saved_order_booking_code
                 order_item_serializer = OrderItemsSerializer(data=item)
                 order_item_serializer.is_valid(raise_exception=True)
                 order_item_serializer.save()
