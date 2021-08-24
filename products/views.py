@@ -140,7 +140,7 @@ class ProductViewSet(viewsets.ViewSet):
             serializer = ProductSerializer(instance=product)
             request_instance = dict(serializer.data)
             request_instance['deleted_at'] = datetime.datetime.now()
-            serializer = ProductSerializer(instance=Product, data=request_instance)
+            serializer = ProductSerializer(instance=product, data=request_instance)
             serializer.is_valid(raise_exception=True)
             serializer.deleted_at=datetime.datetime.now()
             serializer.save()
