@@ -33,7 +33,7 @@ class CategoryViewSet(viewsets.ViewSet):
 
     def list(self, request): 
         try:
-            categories = Categories.objects.filter(deleted_at=None)
+            categories = Category.objects.filter(deleted_at=None)
             serializer = CategorySerializer(categories, many=True)
             return Response({serializer.data}, status=status.HTTP_200_OK)
         except Exception as e:
@@ -63,7 +63,7 @@ class CategoryViewSet(viewsets.ViewSet):
     @csrf_exempt
     def update(self, request, pk=None): 
         try:
-            category = Categories.objects.get(id=pk)
+            category = Category.objects.get(id=pk)
             serializer = CategorySerializer(instance=category, data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
