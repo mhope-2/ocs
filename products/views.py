@@ -53,7 +53,7 @@ class CategoryViewSet(viewsets.ViewSet):
     
     def retrieve(self, request, pk=None): 
         try:
-            category = ClotheCategories.objects.get(id=pk, deleted_at=None)
+            category = Category.objects.get(id=pk, deleted_at=None)
             serializer = CategorySerializer(category)
             return Response(serializer.data)
         except Exception as e:
@@ -166,12 +166,12 @@ class FileUploadView(APIView):
             data = df.to_dict(orient='records')
 
             for item in data:
-                if not ClotheCategories.objects.filter(name=item['category']).exists():
+                if not Category.objects.filter(name=item['category']).exists():
                     return Response({"response": "Bulk Upload Sheet Contains an Invalid Category {}. Kindly Add the Category(ies).".format(item['category'])}, status=status.HTTP_400_BAD_REQUEST)
                 
             # check for category to int
             for item in data:
-                category_id = ClotheCategories.objects.get(name=item['category']).id
+                category_id = Category.objects.get(name=item['category']).id
                 item['category'] = int(category_id)
 
                 # check for created by
