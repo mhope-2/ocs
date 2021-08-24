@@ -46,7 +46,7 @@ class CategoryViewSet(viewsets.ViewSet):
             serializer.is_valid(raise_exception=True)
             serializer.save()
             logging.debug(str(serializer))
-            return Response({"response": "{} category has been created successfully".format(serializer.name)}, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             logging.error(str(e))
             return Response({"response":str(e)}, status=status.HTTP_400_BAD_REQUEST)
