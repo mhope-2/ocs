@@ -75,7 +75,7 @@ class CategoryViewSet(viewsets.ViewSet):
     @csrf_exempt
     def destroy(self, request, pk=None):
         try:
-            category = categories.objects.get(id=pk)
+            category = Category.objects.get(id=pk)
             serializer = CategorySerializer(instance=category)
             request_instance = dict(serializer.data)
             request_instance['deleted_at'] = datetime.datetime.now()
@@ -96,7 +96,7 @@ class ProductViewSet(viewsets.ViewSet):
 
     def list(self, request): 
         try:
-            clothes = Clothes.objects.filter(deleted_at=None)
+            clothes = Product.objects.filter(deleted_at=None)
             serializer = ProductSerializer(clothes, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
@@ -115,7 +115,7 @@ class ProductViewSet(viewsets.ViewSet):
     
     def retrieve(self, request, pk=None): 
         try:
-            clothe = Clothes.objects.get(id=pk, deleted_at=None)
+            clothe = Product.objects.get(id=pk, deleted_at=None)
             serializer = ProductSerializer(Clothe)
             return Response(serializer.data)
         except Exception as e:
@@ -124,7 +124,7 @@ class ProductViewSet(viewsets.ViewSet):
 
     def update(self, request, pk=None): 
         try:
-            clothe = Clothes.objects.get(id=pk)
+            clothe = Product.objects.get(id=pk)
             serializer = ProductSerializer(instance=Clothe, data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
@@ -136,7 +136,7 @@ class ProductViewSet(viewsets.ViewSet):
     
     def destroy(self, request, pk=None):
         try:
-            clothe = Clothes.objects.get(id=pk)
+            clothe = Product.objects.get(id=pk)
             serializer = ProductSerializer(instance=Clothe)
             request_instance = dict(serializer.data)
             request_instance['deleted_at'] = datetime.datetime.now()
@@ -180,6 +180,6 @@ class FileUploadView(APIView):
                 serializer.is_valid(raise_exception=True)
                 serializer.save()
 
-            return Response({"response": "Successfully Uploaded Clothes"}, status=status.HTTP_200_OK)
+            return Response({"response": "Successfully Uploaded Products"}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"response": str(e)}, status=status.HTTP_204_NO_CONTENT)
