@@ -35,7 +35,7 @@ class CategoryViewSet(viewsets.ViewSet):
         try:
             categories = Category.objects.filter(deleted_at=None)
             serializer = CategorySerializer(categories, many=True)
-            return Response({serializer.data}, status=status.HTTP_200_OK)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -97,14 +97,14 @@ class ProductViewSet(viewsets.ViewSet):
     def list(self, request): 
         try:
             clothes = Clothes.objects.filter(deleted_at=None)
-            serializer = ClothesSerializer(clothes, many=True)
+            serializer = ProductSerializer(clothes, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     def create(self, request): 
         try:
-            serializer = ClothesSerializer(data=request.data)
+            serializer = ProductSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             logging.debug(str(serializer))
@@ -116,7 +116,7 @@ class ProductViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None): 
         try:
             clothe = Clothes.objects.get(id=pk, deleted_at=None)
-            serializer = ClothesSerializer(Clothe)
+            serializer = ProductSerializer(Clothe)
             return Response(serializer.data)
         except Exception as e:
             logging.error(str(e))
@@ -125,7 +125,7 @@ class ProductViewSet(viewsets.ViewSet):
     def update(self, request, pk=None): 
         try:
             clothe = Clothes.objects.get(id=pk)
-            serializer = ClothesSerializer(instance=Clothe, data=request.data)
+            serializer = ProductSerializer(instance=Clothe, data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response({"response": "Clothe updated successfully"}, status=status.HTTP_201_CREATED)
@@ -137,10 +137,10 @@ class ProductViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         try:
             clothe = Clothes.objects.get(id=pk)
-            serializer = ClothesSerializer(instance=Clothe)
+            serializer = ProductSerializer(instance=Clothe)
             request_instance = dict(serializer.data)
             request_instance['deleted_at'] = datetime.datetime.now()
-            serializer = ClothesSerializer(instance=Clothe, data=request_instance)
+            serializer = ProductSerializer(instance=Clothe, data=request_instance)
             serializer.is_valid(raise_exception=True)
             serializer.deleted_at=datetime.datetime.now()
             serializer.save()
@@ -176,7 +176,7 @@ class FileUploadView(APIView):
 
                 # check for created by
 
-                serializer = ClothesSerializer(data=item)
+                serializer = ProductSerializer(data=item)
                 serializer.is_valid(raise_exception=True)
                 serializer.save()
 
