@@ -28,6 +28,7 @@ urlpatterns = [
     path('api/v1/', include('users.urls')),
     path('api/v1/', include('products.urls')),
     path('api/v1/', include('customers.urls')),
+    path('api/v1/', include('quotations.urls')),
 
     # path('api/v1/', include('djoser.urls')),
 
