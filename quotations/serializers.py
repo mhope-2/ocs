@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from .models import Quotations, QuotationItems
+from .models import Quotation, QuotationItems
 
 class QuotationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Quotations
+        model = Quotation
         fields = '__all__'
 
 
