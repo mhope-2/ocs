@@ -5,7 +5,7 @@ import datetime
 # import pandas as pd
 
 from rest_framework import generics, permissions
-from .models import QuotationItems, Quotations
+from .models import QuotationItems, Quotation
 
 from .serializers import QuotationItemsSerializer, QuotationSerializer
 from django.views.decorators.csrf import csrf_exempt
@@ -29,7 +29,7 @@ class QuotationViewSet(viewsets.ViewSet):
 
     def list(self, request): 
         try:
-            quotation = Quotations.objects.filter(deleted_at=None)
+            quotation = Quotation.objects.filter(deleted_at=None)
             serializer = QuotationSerializer(quotation, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Exception as e:
@@ -48,7 +48,7 @@ class QuotationViewSet(viewsets.ViewSet):
             quotation_serializer.save()
             
             # quotation items
-            saved_quotation_booking_code = str(Quotations.objects.last())
+            saved_quotation_booking_code = str(Quotation.objects.last())
             for item in quotation_items:
                 item["quotation_no"] = saved_quotation_booking_code
                 quotation_item_serializer = QuotationItemsSerializer(data=item)
@@ -64,7 +64,7 @@ class QuotationViewSet(viewsets.ViewSet):
     
     def retrieve(self, request, pk=None): 
         try:
-            quotation = Quotations.objects.get(id=pk, deleted_at=None)
+            quotation = Quotation.objects.get(id=pk, deleted_at=None)
             quotation_serializer = QuotationSerializer(quotation)
 
             # quotation items list
@@ -84,7 +84,7 @@ class QuotationViewSet(viewsets.ViewSet):
     def update(self, request, pk=None): 
         try:
             # quotation
-            quotation = Quotations.objects.get(id=pk)
+            quotation = Quotation.objects.get(id=pk)
             quotation_items = QuotationItems.objects.filter(quotation_no=quotation.quotation_no)
 
             quotation_serializer = QuotationSerializer(instance=quotation, data=request.data["quotation"])
@@ -105,7 +105,7 @@ class QuotationViewSet(viewsets.ViewSet):
     
     def destroy(self, request, pk=None):
         try:
-            quotation = Quotations.objects.get(id=pk)
+            quotation = Quotation.objects.get(id=pk)
             serializer = QuotationSerializer(instance=quotation)
             request_instance = dict(serializer.data)
             request_instance['deleted_at'] = datetime.datetime.now()
