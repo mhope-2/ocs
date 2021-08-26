@@ -5,7 +5,10 @@ import datetime
 # import pandas as pd
 
 from rest_framework import generics, permissions
-from .models import OrderItems, Orders
+from .models import OrderItems, Order
+
+from rest_framework.decorators import action
+
 
 from .serializers import OrderItemsSerializer, OrderSerializer
 from django.views.decorators.csrf import csrf_exempt
@@ -42,7 +45,7 @@ class OrderViewSet(viewsets.ViewSet):
 
             # order serializer
             random_bk_code = random.randint(10000,900000)
-            order["order_no"] = "QUOT"+str(random_bk_code)
+            order["order_no"] = "ORD"+str(random_bk_code)
             order_serializer = OrderSerializer(data=order)
             order_serializer.is_valid(raise_exception=True)
             order_serializer.save()
@@ -125,7 +128,18 @@ class OrderViewSet(viewsets.ViewSet):
                 order_item_serializer.deleted_at=datetime.datetime.now()
                 order_item_serializer.save()
 
-            return Response({"response":"Quotation deleted successfully"}, status=status.HTTP_200_OK)
+            return Response({"response":"Order deleted successfully"}, status=status.HTTP_200_OK)
         except Exception as e:
             logging.error(str(e))
             return Response({"response":str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
+        # @csrf_exempt
+    @action(detail=False, methods=['get'])
+    def fetchByNo(self, request, pk=None):
+        try:
+            order = Order.objects.get(order_no=pk, deleted_at=None)
+            serializer = OrderSerializer(order)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"response": str(e)}, status=status.HTTP_400_BAD_REQUEST)
