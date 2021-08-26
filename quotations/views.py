@@ -129,3 +129,15 @@ class QuotationViewSet(viewsets.ViewSet):
         except Exception as e:
             logging.error(str(e))
             return Response({"response":str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    
+        # @csrf_exempt
+    @action(detail=False, methods=['get'])
+    def fetchByNo(self, request, pk=None):
+        try:
+            quotation = Quotation.objects.get(quotation_no=pk, deleted_at=None)
+            serializer = QuotationSerializer(quotation)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"response": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+

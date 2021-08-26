@@ -28,6 +28,8 @@ urlpatterns = [
         'delete': 'destroy'
     })),
 
-    
+     path('quotation/by/number/<str:pk>', QuotationsViewSet.as_view({
+        'get': 'fetchByNo'
+    })),
 
 ]
