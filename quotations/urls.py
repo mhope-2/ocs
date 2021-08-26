@@ -11,7 +11,7 @@ router.register('quotations', QuotationViewSet, basename='Quotations')
 urlpatterns = [
     path('', include(router.urls)),
 
-    # products
+    # quotations
     path('quotations', QuotationViewSet.as_view({
         'get': 'list',
     })),
