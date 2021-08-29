@@ -1,4 +1,4 @@
-# REST API for an Online Clothing Store using Django REST Framework
+## REST API for an Online Clothing Store using Django REST Framework
 
 ### Getting Started
 
@@ -32,5 +32,5 @@ You can now run the development server:
 
 
 ### Further Improvements
--[x] Dockerize the application
+-[x] Dockerize the application  
 -[x] Allow admin to apply taxes and discounts
