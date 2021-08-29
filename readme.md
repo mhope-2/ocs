@@ -32,5 +32,8 @@ You can now run the development server:
 
 
 ### Further Improvements
+```
 -[x] Dockerize the application  
 -[x] Allow admin to apply taxes and discounts
+
+```
