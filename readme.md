@@ -2,7 +2,7 @@
 
 ### Getting Started
 
-First clone the repository from Github and switch to the new directory:
+First clone the repository from Github and switch to the project directory:
 
     $ git clone https://github.com/mhope-2/ocs
     $ cd ocs
@@ -15,7 +15,7 @@ Activate the virtualenv for your project
 
     $ source env/bin/activate
     
-Install project dependencies:
+Install project requirements:
 
     $ pip install -r requirements.txt
     
