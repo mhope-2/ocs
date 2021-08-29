@@ -113,12 +113,12 @@ DATABASES = {
 }
 
 
-SITE_ID = 1 # new
+SITE_ID = 1 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = "the.international.clothing.store@gmail.com"
-EMAIL_HOST_PASSWORD = "nxptswjvvwiungdb"
+EMAIL_HOST_USER = "the.international.clothing.store@gmail.com" # os.environ("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = "nxptswjvvwiungdb" # os.environ("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = 'INT CLOTHING STORE <noreply@theintclothingstore.com>'
 
