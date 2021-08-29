@@ -23,8 +23,8 @@ jobs:
     - name: Make Migrations
       run: python manage.py makemigrations
 
-    - name: Make Migrations user
-      run: python manage.py makemigrations user
+    - name: Make Migrations users
+      run: python manage.py makemigrations users
 
     - name: Make Migrations customers
       run: python manage.py makemigrations customers
@@ -48,8 +48,8 @@ jobs:
     - name: Run Migrations
       run: python manage.py migrate
 
-    - name: Run Migrations user
-      run: python manage.py migrate user
+    - name: Run Migrations users
+      run: python manage.py migrate users
 
     - name: Run Migrations customers
       run: python manage.py migrate customers
