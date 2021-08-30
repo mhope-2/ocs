@@ -3,7 +3,7 @@ from customers.models import Customer
 
 # Create your models here.
 class Receipt(models.Model):
-    receipt_no = models.CharField(max_digits=255)
+    receipt_no = models.CharField(max_length=255)
     customer_id = models.ForeignKey(Customer, on_delete=models.CASCADE)
     customer_first_name = models.CharField(max_length=255)
     customer_middle_name = models.CharField(max_length=255, blank=True, null=True)
