@@ -1,5 +1,5 @@
 from django.db import models
-from customers.model import Customer
+from customers.models import Customer
 
 # Create your models here.
 class Receipt(models.Model):
