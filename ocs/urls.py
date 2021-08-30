@@ -29,6 +29,9 @@ urlpatterns = [
     path('api/v1/', include('products.urls')),
     path('api/v1/', include('customers.urls')),
     path('api/v1/', include('quotations.urls')),
+    path('api/v1/', include('orders.urls')),
+    path('api/v1/', include('payments.urls')),
+    path('api/v1/', include('receipts.urls')),
 
     # path('api/v1/', include('djoser.urls')),
 
