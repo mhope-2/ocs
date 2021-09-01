@@ -5,7 +5,7 @@ import datetime
 # import pandas as pd
 
 from rest_framework import generics, permissions
-from .models import Invoice, Receipt
+from .models import Receipt
 from quotations.models import Quotation
 
 from .serializers import ReceiptSerializer
