@@ -58,7 +58,9 @@ INSTALLED_APPS = [
     'payments',
     'customers',
     'products',
-    'receipts'
+    'receipts',
+
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
