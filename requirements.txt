@@ -11,6 +11,7 @@ Django==3.2.4
 django-allauth==0.44.0
 django-audittrail==0.2.1
 django-cors-headers==3.7.0
+django-extensions
 django-filter==2.4.0
 django-rest-auth==0.9.5
 django-templated-mail==1.1.1
