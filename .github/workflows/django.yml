@@ -17,7 +17,6 @@ jobs:
 
         - name: Run Test # running tests
           run: python manage.py test
-
         - name: Deploy django to heroku
           uses: nyakaz73/heroku-django-deploy@v0.68 
           with: 
