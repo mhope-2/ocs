@@ -19,59 +19,6 @@ jobs:
       with:
         args: container:login
 
-    - name: Install requirements # install application requirements
-      run: pip install -r requirements.txt
-
-    - name: Make Migrations
-      run: python manage.py makemigrations
-
-    - name: Make Migrations users
-      run: python manage.py makemigrations users
-
-    - name: Make Migrations customers
-      run: python manage.py makemigrations customers
-
-    - name: Make Migrations products
-      run: python manage.py makemigrations products
-
-    - name: Make Migrations quotations
-      run: python manage.py makemigrations quotations
-
-    - name: Make Migrations orders
-      run: python manage.py makemigrations orders
-
-    - name: Make Migrations invoices
-      run: python manage.py makemigrations invoices
-       
-    - name: Make Migrations payments
-      run: python manage.py makemigrations payments
-    
-
-    - name: Run Migrations
-      run: python manage.py migrate
-
-    - name: Run Migrations users
-      run: python manage.py migrate users
-
-    - name: Run Migrations customers
-      run: python manage.py migrate customers
-    
-    - name: Run Migrations products
-      run: python manage.py migrate products
-
-    - name: Run Migrations quotations
-      run: python manage.py migrate quotations
-
-    - name: Run Migrations products
-      run: python manage.py migrate products
-
-    - name: Run Migrations invoices
-      run: python manage.py migrate invoices
-      
-    - name: Run Migrations payments
-      run: python manage.py migrate payments
-
-
     - name: Run Test # running tests
       run: python manage.py test
 
