@@ -1,29 +1,27 @@
-name: Django CI
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-      with:
-        fetch-depth: 0
-        
-    - name: login
-      uses: actions/heroku@master
-      env:
-        HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
-      with:
-        args: container:login
+  heroku_git_deploy_job:
+      runs-on: ubuntu-latest
+      name: Git Deploy job- A job to deploy django app to heroku using git
 
-    - name: Run Test # running tests
-      run: python manage.py test
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
 
-    - name: set remote
-      run: git remote set-url origin https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/int-online-clothing-store.git
-      
-    - name: push and deploy
-      run: git push origin HEAD:master -f
+        - name: Install requirements # install application requirements
+          run: pip install -r requirements.txt
+
+        - name: Run Test # running tests
+          run: python manage.py test
+
+        - name: Deploy django to heroku
+          uses: nyakaz73/heroku-django-deploy@v0.68 
+          with: 
+            heroku_app_name : int-online-clothing-store
+            heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+            heroku_email_address: 'hopemichael720@gmail.com'
+            use_git: true
