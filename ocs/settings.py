@@ -102,18 +102,18 @@ WSGI_APPLICATION = 'ocs.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default="postgres://wvfmrgnhbxxpcw:5fac3eec623f6fedc60d78b1d136d234bb5baf9a55769a3dce8c2651ece6dbb2@ec2-54-156-60-12.compute-1.amazonaws.com:5432/dbg0o1lhpm7bb1"
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default="postgres://wvfmrgnhbxxpcw:5fac3eec623f6fedc60d78b1d136d234bb5baf9a55769a3dce8c2651ece6dbb2@ec2-54-156-60-12.compute-1.amazonaws.com:5432/dbg0o1lhpm7bb1"
+#     )
+# }
 
 
 SITE_ID = 1 
@@ -134,9 +134,9 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.TokenAuthentication',
         'ocs.auth.BearerAuthentication'
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10
 }

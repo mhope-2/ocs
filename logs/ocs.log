@@ -836,3 +836,87 @@ django.db.utils.OperationalError: no such table: allauth_socialaccount
 2021-08-21 02:19:00,947,947 django.request WARNING Bad Request: /api/v1/login/
 2021-08-21 02:19:22,915,915 django.request WARNING Bad Request: /api/v1/login/
 2021-08-21 02:19:59,758,758 django.utils.autoreload INFO /home/mhope/Documents/projects/ocs/users/serializers.py changed, reloading.
+2021-12-29 16:41:53,055,55 django.request WARNING Not Found: /favicon.ico
+2021-12-29 16:42:10,775,775 django.request ERROR Internal Server Error: /admin/users/user/
+Traceback (most recent call last):
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/db/models/options.py", line 608, in get_field
+    return self.fields_map[field_name]
+KeyError: '__str__'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/contrib/admin/utils.py", line 265, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/contrib/admin/utils.py", line 296, in _get_non_gfk_field
+    field = opts.get_field(name)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/db/models/options.py", line 610, in get_field
+    raise FieldDoesNotExist("%s has no field named '%s'" % (self.object_name, field_name))
+django.core.exceptions.FieldDoesNotExist: User has no field named '__str__'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/core/handlers/exception.py", line 47, in inner
+    response = get_response(request)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/core/handlers/base.py", line 204, in _get_response
+    response = response.render()
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/response.py", line 105, in render
+    self.content = self.rendered_content
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/response.py", line 83, in rendered_content
+    return template.render(context, self._request)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 170, in render
+    return self._render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 162, in _render
+    return self.nodelist.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/loader_tags.py", line 62, in render
+    result = block.nodelist.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 938, in render
+    bit = node.render_annotated(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/base.py", line 905, in render_annotated
+    return self.render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/contrib/admin/templatetags/base.py", line 33, in render
+    return super().render(context)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/template/library.py", line 214, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/contrib/admin/templatetags/admin_list.py", line 308, in result_list
+    'results': list(results(cl)),
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/contrib/admin/templatetags/admin_list.py", line 284, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/contrib/admin/templatetags/admin_list.py", line 275, in __init__
+    super().__init__(*items)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/contrib/admin/templatetags/admin_list.py", line 200, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+  File "/home/mhope/Documents/projects/ocs/env/lib/python3.8/site-packages/django/contrib/admin/utils.py", line 278, in lookup_field
+    value = attr()
+  File "/home/mhope/Documents/projects/ocs/users/models.py", line 41, in __str__
+    return "{} | {} | {}".format(self.id, self.email, self.role)
+AttributeError: 'User' object has no attribute 'role'

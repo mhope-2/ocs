@@ -30,10 +30,14 @@ You can now run the development server:
 
     $ python manage.py runserver
 
+Run Tests:
+
+    $ pytest
 
 ### Further Improvements
 ```
 -[x] Dockerize the application  
 -[x] Allow admin to apply taxes and discounts
+-[x] Add more tests
 
 ```

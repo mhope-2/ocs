@@ -19,7 +19,7 @@ urlpatterns = [
 
     path('customers/create', CustomerViewSet.as_view({
         'post': 'create',
-    }), name='create'),
+    }), name='create-customer'),
 
     path('customers/<str:pk>', CustomerViewSet.as_view({
         'get': 'retrieve',
