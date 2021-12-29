@@ -13,7 +13,7 @@ from pathlib import Path
 
 ROOT_DIR = Path('__file__').resolve().parent
 
-logging.basicConfig(filename=str(ROOT_DIR)+'/logs/amata.log',
+logging.basicConfig(filename=str(ROOT_DIR)+'/logs/ocs.log',
                     filemode='a',
                     format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                     level=logging.DEBUG)
