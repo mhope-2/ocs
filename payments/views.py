@@ -6,6 +6,7 @@ import datetime
 
 from rest_framework import generics, permissions
 from .models import Invoice, Payment
+from invoices.serializers import InvoiceSerializer
 from quotations.models import Quotation
 
 from .serializers import PaymentSerializer
@@ -87,7 +88,7 @@ class PaymentViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         try:
             payment = Payment.objects.get(id=pk)
-            serializer = InvoicesSerializer(instance=payment)
+            serializer = InvoiceSerializer(instance=payment)
             request_instance = dict(serializer.data)
             request_instance['deleted_at'] = datetime.datetime.now()
             payment_serializer = PaymentSerializer(instance=payment, data=request_instance)
