@@ -126,8 +126,6 @@ class RequestPasswordResetEmail(generics.GenericAPIView):
             return Response({"response": "Password reset email sent"}, status=status.HTTP_200_OK)
         else:
             return Response({"response": "Email doesn't exist"})
-        
- 
 
 class PasswordTokenCheckAPI(generics.GenericAPIView):
     def get(self, request, uidb64, token):

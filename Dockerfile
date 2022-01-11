@@ -9,10 +9,11 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Set work directory
-WORKDIR /code
+WORKDIR /app
 
 # Install dependencies
-RUN pip install -r requirements.txt
+COPY Pipfile Pipfile.lock /app/
+RUN pip install pipenv && pipenv install --system
 
 # Copy project 
 COPY . /code/
